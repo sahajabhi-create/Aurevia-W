@@ -5,417 +5,177 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Aurevia-W — Fixed Income Intelligence</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
-
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   :root {
-    --ink: #0f1117;
-    --ink-2: #3d4152;
-    --ink-3: #7c8194;
-    --border: #e4e6ed;
-    --surface: #f8f9fc;
-    --white: #ffffff;
-    --gold: #c9a84c;
-    --gold-light: #f7f0e0;
-    --gold-border: #e8d9a8;
-    --red: #e05252;
-    --red-light: #fdf0f0;
-    --green: #2a9d6e;
-    --green-light: #edf7f3;
-    --green-border: #b8e0d0;
-    --blue: #3b6cf7;
-    --blue-light: #eef2ff;
-    --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: 'DM Mono', 'Courier New', monospace;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --ink: #0f1117; --ink-2: #3d4152; --ink-3: #7c8194;
+    --border: #e4e6ed; --surface: #f8f9fc; --white: #ffffff;
+    --gold: #c9a84c; --gold-light: #f7f0e0; --gold-border: #e8d9a8;
+    --red: #e05252; --red-light: #fdf0f0;
+    --green: #2a9d6e; --green-light: #edf7f3; --green-border: #b8e0d0;
+    --font: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'DM Mono', monospace;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--surface); color: var(--ink); font-size: 14px; line-height: 1.5; }
+  .app { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
 
-  body {
-    font-family: var(--font);
-    background: var(--surface);
-    color: var(--ink);
-    font-size: 14px;
-    line-height: 1.5;
-    min-height: 100vh;
-  }
-
-  .app {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 24px 16px 48px;
-  }
-
-  /* ── MASTHEAD ── */
-  .masthead {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    padding-bottom: 16px;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-  }
+  /* MASTHEAD */
+  .masthead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); }
+  .logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--gold); letter-spacing: 0.08em; }
   .logo span { color: var(--ink-3); font-weight: 400; }
-  .badge {
-    background: var(--gold-light);
-    color: var(--gold);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 0.5px solid var(--gold-border);
-    letter-spacing: 0.02em;
-  }
+  .badge { background: var(--gold-light); color: var(--gold); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--gold-border); }
 
-  /* ── HEADLINE ── */
+  /* HEADLINE */
   .headline { margin-bottom: 24px; }
-  .headline h1 {
-    font-size: clamp(18px, 4vw, 24px);
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-  .headline p {
-    font-size: 13px;
-    color: var(--ink-3);
-    line-height: 1.7;
-    max-width: 560px;
-  }
+  .headline h1 { font-size: clamp(18px,4vw,24px); font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 8px; }
+  .headline p { font-size: 13px; color: var(--ink-3); line-height: 1.7; }
 
-  /* ── SECTION CARD ── */
-  .section {
-    background: var(--white);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 14px;
-  }
-  .section-title {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
-    margin-bottom: 16px;
-  }
+  /* SECTION */
+  .section { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+  .section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 16px; }
 
-  /* ── FORM FIELDS ── */
+  /* FIELDS */
   .field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  .field-grid-1 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
-
   .field { display: flex; flex-direction: column; gap: 5px; }
-  .field label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ink-3);
-    letter-spacing: 0.02em;
-  }
-  .field input,
-  .field select {
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    font-family: var(--font);
-    font-size: 14px;
-    color: var(--ink);
-    background: var(--surface);
-    outline: none;
-    transition: border-color 0.15s, background 0.15s;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
+  .field label { font-size: 11px; font-weight: 600; color: var(--ink-3); }
+  .field input, .field select {
+    border: 0.5px solid var(--border); border-radius: 8px; padding: 10px 12px;
+    font-family: var(--font); font-size: 14px; color: var(--ink); background: var(--surface);
+    outline: none; transition: border-color 0.15s; width: 100%;
+    -webkit-appearance: none; appearance: none;
   }
   .field select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c8194' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
   }
-  .field input:focus,
-  .field select:focus {
-    border-color: var(--gold);
-    background: var(--white);
-  }
+  .field input:focus, .field select:focus { border-color: var(--gold); background: var(--white); }
+  .field input.error { border-color: var(--red); }
 
-  /* ── HOLDINGS TABLE ── */
-  .col-header-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.3fr 28px;
-    gap: 8px;
-    padding: 0 0 8px;
-    border-bottom: 0.5px solid var(--border);
-    margin-bottom: 4px;
-  }
-  .col-hdr {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-3);
-  }
-  .holding-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.3fr 28px;
-    gap: 8px;
-    align-items: center;
-    padding: 7px 0;
-    border-bottom: 0.5px solid var(--border);
-  }
+  /* HOLDINGS */
+  .col-header-row { display: grid; grid-template-columns: 2fr 1fr 1.3fr 28px; gap: 8px; padding: 0 0 8px; border-bottom: 0.5px solid var(--border); margin-bottom: 4px; }
+  .col-hdr { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+  .holding-row { display: grid; grid-template-columns: 2fr 1fr 1.3fr 28px; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 0.5px solid var(--border); }
   .holding-row:last-child { border-bottom: none; }
-  .holding-row select,
-  .holding-row input {
-    border: 0.5px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 10px;
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--ink);
-    background: var(--surface);
-    outline: none;
-    width: 100%;
-    -webkit-appearance: none;
-    appearance: none;
+  .holding-row select, .holding-row input {
+    border: 0.5px solid var(--border); border-radius: 6px; padding: 8px 10px;
+    font-family: var(--font); font-size: 13px; color: var(--ink); background: var(--surface);
+    outline: none; width: 100%; -webkit-appearance: none; appearance: none;
   }
-  .holding-row select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c8194' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    padding-right: 24px;
-  }
-  .holding-row select:focus,
-  .holding-row input:focus { border-color: var(--gold); background: var(--white); }
-
-  .del-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--ink-3);
-    font-size: 18px;
-    line-height: 1;
-    padding: 4px 6px;
-    border-radius: 6px;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .holding-row select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c8194' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; padding-right: 24px; }
+  .holding-row select:focus, .holding-row input:focus { border-color: var(--gold); background: var(--white); }
+  .del-btn { background: none; border: none; cursor: pointer; color: var(--ink-3); font-size: 18px; padding: 4px 6px; border-radius: 6px; transition: all 0.15s; }
   .del-btn:hover { color: var(--red); background: var(--red-light); }
+  .add-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; background: none; border: 0.5px dashed var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font); font-size: 13px; color: var(--ink-3); cursor: pointer; margin-top: 12px; transition: all 0.15s; }
+  .add-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
-  .add-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    background: none;
-    border: 0.5px dashed var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--ink-3);
-    cursor: pointer;
-    margin-top: 12px;
-    transition: all 0.15s;
-  }
-  .add-btn:hover,
-  .add-btn:active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
-
-  /* ── ANALYZE BUTTON ── */
-  .analyze-btn {
-    width: 100%;
-    background: var(--ink);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius);
-    padding: 16px;
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: all 0.15s;
-    margin-top: 8px;
-  }
+  /* ANALYZE BTN */
+  .analyze-btn { width: 100%; background: var(--ink); color: var(--white); border: none; border-radius: 12px; padding: 16px; font-family: var(--font); font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: all 0.15s; }
   .analyze-btn:hover { background: #1e2230; }
-  .analyze-btn:active { transform: scale(0.99); }
+  .analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  /* ── RESULTS ── */
+  /* LEAD GATE MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,17,23,0.7); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: var(--white); border-radius: 16px; padding: 28px 24px; max-width: 420px; width: 100%; }
+  .modal-title { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--ink-3); margin-bottom: 20px; line-height: 1.6; }
+  .modal-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .modal-field label { font-size: 11px; font-weight: 600; color: var(--ink-3); }
+  .modal-field input { border: 0.5px solid var(--border); border-radius: 8px; padding: 12px 14px; font-family: var(--font); font-size: 15px; color: var(--ink); outline: none; width: 100%; transition: border-color 0.15s; }
+  .modal-field input:focus { border-color: var(--gold); }
+  .modal-field input.error { border-color: var(--red); }
+  .modal-submit { width: 100%; background: var(--ink); color: var(--white); border: none; border-radius: 10px; padding: 14px; font-family: var(--font); font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 4px; transition: all 0.15s; }
+  .modal-submit:hover { background: #1e2230; }
+  .modal-submit:disabled { opacity: 0.6; }
+  .modal-privacy { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+  /* RESULTS */
   .results { display: none; margin-top: 20px; }
   .results.show { display: block; }
 
-  .result-hero {
-    background: var(--ink);
-    border-radius: var(--radius);
-    padding: 22px 20px;
-    margin-bottom: 14px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-  }
-  .rh-label {
-    font-size: 10px;
-    color: rgba(255,255,255,0.45);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    margin-bottom: 6px;
-  }
-  .rh-val {
-    font-family: var(--mono);
-    font-size: clamp(18px, 4vw, 24px);
-    font-weight: 500;
-    color: var(--white);
-  }
-  .rh-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 3px; }
+  .result-hero { background: var(--ink); border-radius: 12px; padding: 22px 20px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .rh-label { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  .rh-val { font-family: var(--mono); font-size: clamp(18px,4vw,24px); font-weight: 500; color: var(--white); }
   .rh-gold { color: var(--gold); }
+  .rh-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 3px; }
 
-  .gain-callout {
-    background: var(--green-light);
-    border: 0.5px solid var(--green-border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
+  .gain-callout { background: var(--green-light); border: 0.5px solid var(--green-border); border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .gc-label { font-size: 13px; color: var(--green); font-weight: 500; line-height: 1.4; }
-  .gc-val {
-    font-family: var(--mono);
-    font-size: clamp(18px, 4vw, 22px);
-    font-weight: 600;
-    color: var(--green);
-    white-space: nowrap;
-  }
+  .gc-val { font-family: var(--mono); font-size: clamp(18px,4vw,22px); font-weight: 600; color: var(--green); white-space: nowrap; }
 
-  /* ── TABLE ── */
+  /* WHATSAPP CTA */
+  .wa-cta { background: #25D366; border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.15s; }
+  .wa-cta:hover { background: #1db954; }
+  .wa-icon { font-size: 24px; flex-shrink: 0; }
+  .wa-text { flex: 1; }
+  .wa-title { font-size: 14px; font-weight: 600; color: #fff; }
+  .wa-sub { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .wa-arrow { color: #fff; font-size: 18px; }
+
+  /* TABLE */
   .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .holdings-table { width: 100%; border-collapse: collapse; min-width: 480px; }
-  .holdings-table th {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-3);
-    padding: 8px 10px;
-    text-align: left;
-    border-bottom: 0.5px solid var(--border);
-    white-space: nowrap;
-  }
-  .holdings-table td {
-    padding: 11px 10px;
-    font-size: 13px;
-    color: var(--ink-2);
-    border-bottom: 0.5px solid var(--border);
-    vertical-align: top;
-  }
+  .holdings-table { width: 100%; border-collapse: collapse; min-width: 460px; }
+  .holdings-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); padding: 8px 10px; text-align: left; border-bottom: 0.5px solid var(--border); }
+  .holdings-table td { padding: 11px 10px; font-size: 13px; color: var(--ink-2); border-bottom: 0.5px solid var(--border); vertical-align: top; }
   .holdings-table tr:last-child td { border-bottom: none; }
-  .holdings-table tr:hover td { background: var(--surface); }
-
-  .pill {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 9px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
   .pill-red { background: var(--red-light); color: var(--red); }
   .pill-green { background: var(--green-light); color: var(--green); }
   .pill-amber { background: var(--gold-light); color: var(--gold); }
 
-  /* ── RECOMMENDATION CARDS ── */
-  .rec-card {
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .rec-card:hover, .rec-card:active {
-    border-color: var(--gold);
-    background: var(--gold-light);
-  }
+  /* REC CARDS */
+  .rec-card { border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; transition: all 0.15s; }
+  .rec-card:hover { border-color: var(--gold); background: var(--gold-light); }
   .rec-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
   .rec-meta { font-size: 12px; color: var(--ink-3); line-height: 1.6; }
   .rec-yield { text-align: right; flex-shrink: 0; }
-  .rec-yield-val {
-    font-family: var(--mono);
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--green);
-  }
+  .rec-yield-val { font-family: var(--mono); font-size: 20px; font-weight: 500; color: var(--green); }
   .rec-yield-label { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
 
-  /* ── ADVISOR NOTE ── */
-  .advisor-note {
-    background: var(--gold-light);
-    border: 0.5px solid var(--gold-border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    font-size: 13px;
-    color: var(--ink-2);
-    line-height: 1.8;
-  }
-  .advisor-note .note-title {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
+  /* ADVISOR NOTE */
+  .advisor-note { background: var(--gold-light); border: 0.5px solid var(--gold-border); border-radius: 12px; padding: 18px 20px; font-size: 13px; color: var(--ink-2); line-height: 1.8; }
+  .note-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 12px; }
 
-  /* ── FOOTER ── */
-  .footer {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 0.5px solid var(--border);
-    text-align: center;
-    font-size: 11px;
-    color: var(--ink-3);
-    line-height: 1.7;
-  }
+  /* FOOTER */
+  .footer { margin-top: 32px; padding-top: 20px; border-top: 0.5px solid var(--border); text-align: center; font-size: 11px; color: var(--ink-3); line-height: 1.8; }
   .footer strong { color: var(--gold); font-family: var(--mono); letter-spacing: 0.05em; }
 
-  /* ── MOBILE ── */
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--ink); color: var(--white); padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 500; transition: transform 0.3s; z-index: 200; white-space: nowrap; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .disclaimer { font-size: 11px; color: var(--ink-3); font-style: italic; line-height: 1.6; margin-top: 10px; }
+
   @media (max-width: 500px) {
     .result-hero { grid-template-columns: 1fr 1fr; }
-    .result-hero .rh-item:last-child { grid-column: 1 / -1; }
+    .result-hero .rh-item:last-child { grid-column: 1/-1; }
     .field-grid-2 { grid-template-columns: 1fr; }
-    .col-header-row,
-    .holding-row { grid-template-columns: 1.5fr 1fr 1.2fr 26px; }
-    .gain-callout { flex-direction: column; align-items: flex-start; gap: 6px; }
-  }
-
-  /* ── DISCLAIMER ── */
-  .disclaimer {
-    font-size: 11px;
-    color: var(--ink-3);
-    font-style: italic;
-    line-height: 1.6;
-    margin-top: 10px;
+    .gain-callout { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
+
+<!-- LEAD GATE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">One step to see your analysis</div>
+    <div class="modal-sub">Enter your name and WhatsApp number. Rachana Sharma will review your portfolio and call you within 24 hours.</div>
+    <div class="modal-field">
+      <label>Your Name</label>
+      <input type="text" id="leadName" placeholder="e.g. Rajesh Agarwal" autocomplete="name" />
+    </div>
+    <div class="modal-field">
+      <label>WhatsApp Number</label>
+      <input type="tel" id="leadPhone" placeholder="e.g. 9826XXXXXX" inputmode="numeric" autocomplete="tel" maxlength="10" />
+    </div>
+    <button class="modal-submit" id="modalSubmit" onclick="submitLead()">Show my analysis →</button>
+    <div class="modal-privacy">Your data is private. Used only by Aurevia-W for advisory follow-up.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <div class="app">
 
@@ -480,7 +240,7 @@
     <button class="add-btn" onclick="addHolding()">+ Add holding</button>
   </div>
 
-  <button class="analyze-btn" onclick="analyze()">Calculate post-tax yield &amp; recommendations →</button>
+  <button class="analyze-btn" id="analyzeBtn" onclick="triggerAnalyze()">Calculate post-tax yield &amp; recommendations →</button>
 
   <!-- RESULTS -->
   <div class="results" id="results">
@@ -508,6 +268,16 @@
       <div class="gc-val" id="gc-total">—</div>
     </div>
 
+    <!-- WHATSAPP CTA -->
+    <div class="wa-cta" id="waCta" onclick="openWhatsApp()">
+      <div class="wa-icon">💬</div>
+      <div class="wa-text">
+        <div class="wa-title">Rachana will call you within 24 hours</div>
+        <div class="wa-sub" id="wa-sub-text">Tap to also send your analysis on WhatsApp</div>
+      </div>
+      <div class="wa-arrow">→</div>
+    </div>
+
     <div class="section">
       <div class="section-title">Breakdown — your current portfolio</div>
       <div class="tbl-wrap">
@@ -529,7 +299,7 @@
     <div class="section">
       <div class="section-title">Recommended alternatives — available now</div>
       <div id="rec-container"></div>
-      <div class="disclaimer" id="rec-disclaimer"></div>
+      <div class="disclaimer">Product rates are indicative. Availability subject to open subscription windows. Contact Aurevia-W for current allotment status.</div>
     </div>
 
     <div class="advisor-note">
@@ -539,7 +309,7 @@
 
     <div class="footer">
       <strong>AUREVIA-W</strong><br>
-      Abhishek Sharma · ARN 346352 · Indore<br>
+      Rachana Sharma · ARN 346352 · Indore<br>
       Fixed income · HNI advisory · NRI structuring<br><br>
       <span style="font-size:10px">Post-tax calculations are indicative. Tax treatment varies by individual ITR position, holding period, and product specifics. Consult your CA before execution. This tool is for advisory discussion only and does not constitute investment advice.</span>
     </div>
@@ -549,281 +319,285 @@
 </div><!-- /app -->
 
 <script>
-// ── TAX TREATMENT DEFINITIONS ──
+// ── CONFIG — paste your Apps Script Web App URL here after deploying ──
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzs2-SW645H3hFg5R8vl7iO_2PUE4FuJ6kyrZOmoR21F6-iQ8DMNgc3kNGJhwZ1cOEqCw/exec';
+
+// ── TAX TREATMENTS ──
 const TAX = {
-  'Bank FD':        { label: 'Interest taxed at slab, annually', type: 'slab_annual' },
-  'Corporate FD':   { label: 'Interest taxed at slab, annually', type: 'slab_annual' },
-  'Post Office':    { label: 'Interest taxed at slab, annually', type: 'slab_annual' },
-  'LIC Endowment':  { label: 'Maturity exempt u/s 10(10D)', type: 'exempt' },
-  'Debt MF':        { label: 'Slab rate at exit (post Apr 2023)', type: 'slab_exit' },
-  'Listed NCD':     { label: 'LTCG 12.5% if held 12m+ (listed)', type: 'ltcg_listed' },
-  'Unlisted NCD':   { label: 'Slab rate at exit', type: 'slab_exit' },
-  'AIF Cat II':     { label: 'Pass-through: LTCG/STCG at investor', type: 'aif_passthru' },
-  'Govt Bond':      { label: 'Interest at slab; LTCG 10% on gain', type: 'govtbond' },
-  'Sovereign Gold': { label: 'Interest taxable; maturity gain exempt', type: 'sgb' },
-  'RBI Bonds':      { label: 'Interest fully taxable at slab', type: 'slab_annual' },
+  'Bank FD':                         { label: 'Interest at slab rate, annually (TDS applicable)', type: 'slab_annual' },
+  'Corporate FD':                    { label: 'Interest at slab rate, annually (TDS applicable)', type: 'slab_annual' },
+  'Post Office':                     { label: 'Interest at slab rate, annually', type: 'slab_annual' },
+  'RBI Bonds':                       { label: 'Interest fully taxable at slab', type: 'slab_annual' },
+  'LIC Endowment':                   { label: 'Maturity proceeds exempt u/s 10(10D)', type: 'exempt' },
+  'Debt MF':                         { label: 'Capital gain at slab rate on exit (post Apr 2023)', type: 'slab_exit' },
+  'NCD — Listed, Cumulative (LTCG)': { label: 'LTCG 12.5% — held 12m+, no surcharge', type: 'ltcg_listed', tag: 'LTCG' },
+  'NCD — Listed, Cumulative (STCG)': { label: 'STCG at slab — held under 12 months', type: 'stcg_listed', tag: 'STCG' },
+  'NCD — Listed, Interest Paying':   { label: 'Interest taxed at slab annually (no LTCG benefit)', type: 'slab_annual', tag: 'SLAB' },
+  'NCD — Unlisted':                  { label: 'Capital gain at slab rate on exit', type: 'slab_exit' },
+  'AIF Cat II — LTCG':               { label: 'Pass-through: LTCG 12.5% (held 24m+)', type: 'aif_ltcg', tag: 'LTCG' },
+  'AIF Cat II — STCG':               { label: 'Pass-through: STCG at slab (held under 24m)', type: 'aif_stcg', tag: 'STCG' },
+  'Govt Bond':                       { label: 'Interest at slab; LTCG 10% on capital gain', type: 'govtbond' },
+  'Sovereign Gold':                  { label: 'Interest at slab; maturity gain exempt u/s 47', type: 'sgb' },
+  'InvIT / REIT':                    { label: 'Dividend at slab; LTCG 10% on units held 12m+', type: 'invit' },
 };
 
-// ── POST-TAX CALCULATION ──
-function postTax(gross, type, slab) {
+function calcPostTax(gross, type, slab) {
   const s = slab / 100;
   switch (type) {
-    case 'slab_annual':   return gross * (1 - s);
-    case 'exempt':        return gross * 0.96; // net of charges/mortality
-    case 'slab_exit':     return gross * (1 - s * 0.82); // deferral benefit
-    case 'ltcg_listed':   return gross * (1 - 0.125);    // 12.5% LTCG
-    case 'aif_passthru':  return gross * (1 - 0.125);    // LTCG assumption
-    case 'govtbond':      return gross * (1 - s * 0.55);
-    case 'sgb':           return gross * 0.975;
-    default:              return gross * (1 - s);
+    case 'slab_annual':  return gross * (1 - s);
+    case 'exempt':       return gross * 0.96;
+    case 'slab_exit':    return gross * (1 - s * 0.82);
+    case 'ltcg_listed':  return gross * (1 - 0.125);          // 12.5% flat LTCG
+    case 'stcg_listed':  return gross * (1 - s * 0.85);       // slab at exit, slight deferral
+    case 'aif_ltcg':     return gross * (1 - 0.125);          // 12.5% LTCG after 24m
+    case 'aif_stcg':     return gross * (1 - s * 0.82);       // slab at exit
+    case 'govtbond':     return gross * (1 - s * 0.55);
+    case 'sgb':          return gross * 0.975;
+    case 'invit':        return gross * (1 - s * 0.5) * 0.97;
+    default:             return gross * (1 - s);
   }
 }
 
-// ── LIVE PRODUCT DATABASE (manually maintained) ──
 const PRODUCTS = [
-  {
-    name: 'EFCL GEM Series NCD',
-    type: 'Listed NCD',
-    gross: 10.5,
-    rating: 'A+ (CRISIL)',
-    tenor: '3Y',
-    minL: 10,
-    note: 'Senior secured, listed. Cumulative option. LTCG 12.5% if held 12m+.'
-  },
-  {
-    name: 'EFCL Sapphire III NCD',
-    type: 'Listed NCD',
-    gross: 9.8,
-    rating: 'A+ (CRISIL)',
-    tenor: '2Y',
-    minL: 10,
-    note: 'Listed, A+ rated. Quarterly interest or cumulative option available.'
-  },
-  {
-    name: 'IIFL Home Finance NCD',
-    type: 'Listed NCD',
-    gross: 10.2,
-    rating: 'AA- (ICRA)',
-    tenor: '3Y',
-    minL: 10,
-    note: 'AA- rated. Monthly/annual interest options. Listed on BSE/NSE.'
-  },
-  {
-    name: 'Nuvama Private Credit AIF',
-    type: 'AIF Cat II',
-    gross: 13.0,
-    rating: 'Cat II AIF',
-    tenor: '3Y',
-    minL: 100,
-    note: 'Private credit strategy. Pass-through taxation. Min ₹1 Cr. SEBI registered.'
-  },
-  {
-    name: '360 ONE Structured Credit AIF',
-    type: 'AIF Cat II',
-    gross: 12.5,
-    rating: 'Cat II AIF',
-    tenor: '2Y',
-    minL: 100,
-    note: 'Structured credit. Capital protection feature. Min ₹1 Cr.'
-  },
-  {
-    name: 'GIFT City USD Bond Fund',
-    type: 'AIF Cat II',
-    gross: 8.5,
-    rating: 'IFSCA regulated',
-    tenor: '2Y',
-    minL: 1000,
-    note: 'USD returns. NRIs: treaty benefits may apply. Min $10,000.'
-  },
+  { name: 'EFCL GEM Series NCD',       type: 'NCD — Listed, Cumulative (LTCG)', gross: 10.5, rating: 'A+ (CRISIL)', tenor: '3Y', minL: 10,   taxTag: 'LTCG', note: 'Cumulative. Hold 12m+ → LTCG 12.5%. At 30% slab: ~9.16% post-tax vs FD ~4.9%.' },
+  { name: 'EFCL Sapphire III NCD',     type: 'NCD — Listed, Cumulative (LTCG)', gross: 9.8,  rating: 'A+ (CRISIL)', tenor: '2Y', minL: 10,   taxTag: 'LTCG', note: 'Cumulative LTCG option. Quarterly interest option also available (taxed at slab).' },
+  { name: 'IIFL Home Finance NCD',     type: 'NCD — Listed, Interest Paying',   gross: 10.2, rating: 'AA- (ICRA)',  tenor: '3Y', minL: 10,   taxTag: 'SLAB', note: 'Monthly interest option. Coupon taxed at slab annually — no LTCG benefit on interest.' },
+  { name: 'Nuvama Private Credit AIF', type: 'AIF Cat II — LTCG',               gross: 13.0, rating: 'Cat II AIF',  tenor: '3Y', minL: 100,  taxTag: 'LTCG', note: 'Hold 24m+ for LTCG 12.5%. Pass-through taxation. Min ₹1 Cr.' },
+  { name: '360 ONE Structured Credit', type: 'AIF Cat II — STCG',               gross: 12.5, rating: 'Cat II AIF',  tenor: '2Y', minL: 100,  taxTag: 'STCG', note: '2Y tenor — STCG at slab (under 24m). Capital protection feature. Min ₹1 Cr.' },
+  { name: 'GIFT City USD Bond Fund',   type: 'AIF Cat II — LTCG',               gross: 8.5,  rating: 'IFSCA',       tenor: '2Y', minL: 1000, taxTag: 'LTCG', note: 'USD returns. NRIs: treaty benefits may apply. LTCG eligible. Min $10,000.' },
 ];
 
-// ── FORMAT HELPERS ──
 function fmtCr(n) {
-  if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2) + ' Cr';
-  if (n >= 100000)   return '₹' + (n / 100000).toFixed(1) + 'L';
-  if (n >= 1000)     return '₹' + Math.round(n / 1000) + 'K';
+  if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + ' Cr';
+  if (n >= 100000)   return '₹' + (n/100000).toFixed(1) + 'L';
   return '₹' + Math.round(n).toLocaleString('en-IN');
 }
-function fmtNum(n) { return n.toLocaleString('en-IN'); }
 
-// ── STATE ──
 let holdings = [
-  { type: 'Bank FD',        rate: 7.0,  amount: 4000000 },
-  { type: 'LIC Endowment',  rate: 5.5,  amount: 2000000 },
-  { type: 'Corporate FD',   rate: 7.5,  amount: 2000000 },
-  { type: 'Post Office',    rate: 7.1,  amount: 2000000 },
+  { type: 'Bank FD',       rate: 7.0, amount: 4000000 },
+  { type: 'LIC Endowment', rate: 5.5, amount: 2000000 },
+  { type: 'Corporate FD',  rate: 7.5, amount: 2000000 },
+  { type: 'Post Office',   rate: 7.1, amount: 2000000 },
 ];
 
-// ── RENDER HOLDINGS INPUT ──
+// Store computed results for lead submission
+let computedResults = null;
+let capturedLead = { name: '', phone: '' };
+
 function renderHoldings() {
   const corpus = parseFloat(document.getElementById('totalCorpus').value) || 10000000;
-  const container = document.getElementById('holdingsContainer');
-  container.innerHTML = holdings.map((h, i) => `
+  document.getElementById('holdingsContainer').innerHTML = holdings.map((h, i) => `
     <div class="holding-row">
       <select onchange="holdings[${i}].type=this.value">
-        ${Object.keys(TAX).map(t =>
-          `<option value="${t}"${h.type === t ? ' selected' : ''}>${t}</option>`
-        ).join('')}
+        ${Object.keys(TAX).map(t => `<option value="${t}"${h.type===t?' selected':''}>${t}</option>`).join('')}
       </select>
-      <input
-        type="number" value="${h.rate}"
-        step="0.1" min="0" max="25"
-        inputmode="decimal"
-        onchange="holdings[${i}].rate=parseFloat(this.value)||0"
-        placeholder="%" />
-      <input
-        type="number" value="${h.amount}"
-        step="100000" min="0"
-        inputmode="numeric"
-        onchange="holdings[${i}].amount=parseFloat(this.value)||0"
-        placeholder="₹" />
-      <button class="del-btn" onclick="removeHolding(${i})" title="Remove">×</button>
-    </div>
-  `).join('');
+      <input type="number" value="${h.rate}" step="0.1" min="0" max="25" inputmode="decimal"
+        onchange="holdings[${i}].rate=parseFloat(this.value)||0" placeholder="%" />
+      <input type="number" value="${h.amount}" step="100000" min="0" inputmode="numeric"
+        onchange="holdings[${i}].amount=parseFloat(this.value)||0" placeholder="₹" />
+      <button class="del-btn" onclick="removeHolding(${i})">×</button>
+    </div>`).join('');
 }
 
 function addHolding() {
   holdings.push({ type: 'Bank FD', rate: 7.0, amount: 1000000 });
   renderHoldings();
 }
-
 function removeHolding(i) {
   if (holdings.length <= 1) return;
   holdings.splice(i, 1);
   renderHoldings();
 }
 
-// ── MAIN ANALYSIS ──
-function analyze() {
+// Step 1: user clicks Calculate → show modal
+function triggerAnalyze() {
+  // Pre-compute results so they're ready
+  runComputation();
+  // Show lead modal
+  document.getElementById('modalOverlay').classList.add('show');
+  setTimeout(() => document.getElementById('leadName').focus(), 300);
+}
+
+// Step 2: user submits name+phone → show results + send to sheet
+function submitLead() {
+  const name  = document.getElementById('leadName').value.trim();
+  const phone = document.getElementById('leadPhone').value.trim();
+
+  // Validate
+  document.getElementById('leadName').classList.remove('error');
+  document.getElementById('leadPhone').classList.remove('error');
+  if (!name) { document.getElementById('leadName').classList.add('error'); return; }
+  if (!/^[6-9]\d{9}$/.test(phone)) { document.getElementById('leadPhone').classList.add('error'); showToast('Enter valid 10-digit mobile number'); return; }
+
+  capturedLead = { name, phone };
+
+  const btn = document.getElementById('modalSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Loading...';
+
+  // Close modal, show results
+  document.getElementById('modalOverlay').classList.remove('show');
+  renderResults();
+
+  // Update WhatsApp button with their name
+  document.getElementById('wa-sub-text').textContent = `Tap to send your analysis to ${name} on WhatsApp`;
+
+  // Send to Google Sheet (non-blocking)
+  sendToSheet(name, phone);
+
+  btn.disabled = false;
+  btn.textContent = 'Show my analysis →';
+}
+
+function runComputation() {
   const slab     = parseInt(document.getElementById('taxSlab').value);
   const corpus   = parseFloat(document.getElementById('totalCorpus').value) || 10000000;
   const horizon  = parseInt(document.getElementById('horizon').value);
   const residency = document.getElementById('residency').value;
 
-  // Scale holdings to match corpus
-  const holdingTotal = holdings.reduce((s, h) => s + (h.amount || 0), 0);
-  const scale = holdingTotal > 0 ? corpus / holdingTotal : 1;
-  const scaled = holdings.map(h => ({ ...h, amount: (h.amount || 0) * scale }));
+  const holdingTotal = holdings.reduce((s,h) => s+(h.amount||0), 0);
+  const scale = holdingTotal > 0 ? corpus/holdingTotal : 1;
+  const scaled = holdings.map(h => ({...h, amount:(h.amount||0)*scale}));
 
-  // Calculate per holding
-  let wGross = 0, wPostTax = 0;
+  let wGross=0, wPostTax=0;
   const rows = scaled.map(h => {
     const t = TAX[h.type] || TAX['Bank FD'];
-    const pt = postTax(h.rate, t.type, slab);
-    const wt = h.amount / corpus;
-    wGross    += h.rate * wt;
-    wPostTax  += pt * wt;
-    return { ...h, postTax: pt, treatment: t, wt };
+    const pt = calcPostTax(h.rate, t.type, slab);
+    const wt = h.amount/corpus;
+    wGross += h.rate*wt; wPostTax += pt*wt;
+    return {...h, postTax:pt, treatment:t, wt};
   });
 
-  // Filter eligible products
   const eligible = PRODUCTS.filter(p => {
-    if (p.minL * 100000 > corpus * 0.15) return false; // min 15% of corpus per product
-    if (residency === 'resident' && p.name.includes('GIFT')) return false;
+    if (p.minL*100000 > corpus*0.15) return false;
+    if (residency==='resident' && p.name.includes('GIFT')) return false;
     return true;
   });
+  const ranked = eligible.map(p => ({...p, postTax:calcPostTax(p.gross, TAX[p.type].type, slab)}))
+    .sort((a,b) => b.postTax-a.postTax).slice(0,4);
 
-  const ranked = eligible
-    .map(p => ({
-      ...p,
-      postTax: postTax(p.gross, TAX[p.type].type, slab)
-    }))
-    .sort((a, b) => b.postTax - a.postTax)
-    .slice(0, 4);
-
-  // Compute optimised blend
-  const bestNCD = ranked.find(r => r.type === 'Listed NCD');
-  const bestAIF = ranked.find(r => r.type === 'AIF Cat II');
+  const bestNCD = ranked.find(r => r.type==='Listed NCD');
+  const bestAIF = ranked.find(r => r.type==='AIF Cat II');
   let optimised = wPostTax;
+  if (corpus>=10000000 && bestNCD && bestAIF) optimised = bestNCD.postTax*0.50 + bestAIF.postTax*0.30 + wPostTax*0.20;
+  else if (bestNCD) optimised = bestNCD.postTax*0.70 + wPostTax*0.30;
+  optimised = Math.min(optimised, 13.5);
 
-  if (corpus >= 10000000 && bestNCD && bestAIF) {
-    // ₹1Cr+: 50% NCD + 30% AIF + 20% keep
-    optimised = bestNCD.postTax * 0.50 + bestAIF.postTax * 0.30 + wPostTax * 0.20;
-  } else if (bestNCD) {
-    // Below ₹1Cr: 70% NCD + 30% keep
-    optimised = bestNCD.postTax * 0.70 + wPostTax * 0.30;
-  }
-  optimised = Math.min(optimised, 13.5); // sanity cap
+  const annualGain = (optimised-wPostTax)/100*corpus;
+  const totalGain  = annualGain*horizon;
 
-  const annualGain  = (optimised - wPostTax) / 100 * corpus;
-  const totalGain   = annualGain * horizon;
+  computedResults = { slab, corpus, horizon, residency, rows, ranked, wPostTax, optimised, annualGain, totalGain };
+}
 
-  // ── POPULATE HERO ──
-  document.getElementById('res-current').textContent     = wPostTax.toFixed(2) + '%';
-  document.getElementById('res-corpus-label').textContent = 'on ' + fmtCr(corpus) + ' corpus';
-  document.getElementById('res-optimised').textContent   = optimised.toFixed(2) + '%';
-  document.getElementById('res-annual-gain').textContent = '+' + fmtCr(annualGain) + '/yr';
-  document.getElementById('gc-years').textContent        = horizon;
-  document.getElementById('gc-total').textContent        = fmtCr(totalGain);
+function renderResults() {
+  if (!computedResults) return;
+  const { slab, corpus, horizon, rows, ranked, wPostTax, optimised, annualGain, totalGain } = computedResults;
 
-  // ── BREAKDOWN TABLE ──
+  document.getElementById('res-current').textContent    = wPostTax.toFixed(2)+'%';
+  document.getElementById('res-corpus-label').textContent = 'on '+fmtCr(corpus)+' corpus';
+  document.getElementById('res-optimised').textContent  = optimised.toFixed(2)+'%';
+  document.getElementById('res-annual-gain').textContent = '+'+fmtCr(annualGain)+'/yr';
+  document.getElementById('gc-years').textContent       = horizon;
+  document.getElementById('gc-total').textContent       = fmtCr(totalGain);
+
   document.getElementById('breakdown-body').innerHTML = rows.map(r => {
-    const pct = (r.wt * 100).toFixed(0) + '%';
-    const status = r.postTax < 5.0
-      ? '<span class="pill pill-red">Inefficient</span>'
-      : r.postTax < 6.5
-        ? '<span class="pill pill-amber">Average</span>'
-        : '<span class="pill pill-green">Acceptable</span>';
+    const pct = (r.wt*100).toFixed(0)+'%';
+    const status = r.postTax<5.0 ? '<span class="pill pill-red">Inefficient</span>'
+      : r.postTax<6.5 ? '<span class="pill pill-amber">Average</span>'
+      : '<span class="pill pill-green">Acceptable</span>';
+    const taxTag = r.treatment.tag
+      ? r.treatment.tag === 'LTCG'
+        ? '<span class="pill pill-green" style="margin-left:4px">LTCG</span>'
+        : r.treatment.tag === 'STCG'
+          ? '<span class="pill pill-amber" style="margin-left:4px">STCG</span>'
+          : '<span class="pill" style="margin-left:4px;background:#f0f0f0;color:#666">SLAB</span>'
+      : '';
     return `<tr>
-      <td><strong>${r.type}</strong><br><span style="font-size:11px;color:var(--ink-3)">${pct} of portfolio</span></td>
+      <td><strong>${r.type}</strong>${taxTag}<br><span style="font-size:11px;color:var(--ink-3)">${pct} of portfolio</span></td>
       <td>${r.rate.toFixed(1)}%</td>
       <td style="font-size:11px;color:var(--ink-3)">${r.treatment.label}</td>
       <td><strong>${r.postTax.toFixed(2)}%</strong></td>
-      <td>${status}</td>
-    </tr>`;
+      <td>${status}</td></tr>`;
   }).join('');
 
-  // ── RECOMMENDATIONS ──
-  document.getElementById('rec-container').innerHTML = ranked.map(p => `
-    <div class="rec-card">
+  document.getElementById('rec-container').innerHTML = ranked.map(p => {
+    const tagHtml = p.taxTag === 'LTCG'
+      ? '<span class="pill pill-green" style="margin-left:6px;vertical-align:middle">LTCG</span>'
+      : p.taxTag === 'STCG'
+        ? '<span class="pill pill-amber" style="margin-left:6px;vertical-align:middle">STCG</span>'
+        : '<span class="pill" style="margin-left:6px;vertical-align:middle;background:#f0f0f0;color:#666">SLAB</span>';
+    return `<div class="rec-card">
       <div>
-        <div class="rec-name">${p.name}</div>
-        <div class="rec-meta">
-          ${p.type} &nbsp;·&nbsp; ${p.rating} &nbsp;·&nbsp; ${p.tenor} &nbsp;·&nbsp; Min ₹${p.minL}L<br>
-          ${p.note}
-        </div>
+        <div class="rec-name">${p.name}${tagHtml}</div>
+        <div class="rec-meta">${p.type} · ${p.rating} · ${p.tenor} · Min ₹${p.minL}L<br>${p.note}</div>
       </div>
       <div class="rec-yield">
         <div class="rec-yield-val">${p.postTax.toFixed(2)}%</div>
         <div class="rec-yield-label">post-tax</div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
-  document.getElementById('rec-disclaimer').textContent =
-    'Product rates are indicative as of last update. Availability subject to open subscription windows. Minimum ticket sizes apply. Contact Aurevia-W for current allotment status.';
-
-  // ── ADVISOR NOTE ──
-  const inefficient = rows.filter(r => r.postTax < 5.5).map(r => r.type);
-  const gapBps = ((optimised - wPostTax) * 100).toFixed(0);
+  const inefficient = rows.filter(r=>r.postTax<5.5).map(r=>r.type);
+  const gapBps = ((optimised-wPostTax)*100).toFixed(0);
   document.getElementById('advisor-note-body').innerHTML = `
-    On a corpus of <strong>${fmtCr(corpus)}</strong>, the current blended post-tax yield is 
-    <strong>${wPostTax.toFixed(2)}%</strong> per annum.
-    ${inefficient.length > 0
-      ? ` The <strong>${inefficient.join(' and ')}</strong> allocation is the primary drag — 
-         at the ${slab}% slab, interest income is taxed annually, eroding the effective return significantly.`
-      : ''}
+    On a corpus of <strong>${fmtCr(corpus)}</strong>, current blended post-tax yield is <strong>${wPostTax.toFixed(2)}%</strong> p.a.
+    ${inefficient.length>0 ? ` The <strong>${inefficient.join(' and ')}</strong> allocation is the primary drag — at the ${slab}% slab, annual interest taxation erodes returns significantly.` : ''}
     <br><br>
-    A structured migration — approximately 50–70% into rated listed NCDs and 20–30% into a 
-    Category II AIF — lifts the post-tax yield to <strong>${optimised.toFixed(2)}%</strong>, 
-    an improvement of <strong>${gapBps} basis points</strong>.
+    A structured migration — 50–70% into rated listed NCDs and 20–30% into a Category II AIF — lifts post-tax yield to approximately <strong>${optimised.toFixed(2)}%</strong>, an improvement of <strong>${gapBps} basis points</strong>.
     <br><br>
-    In rupee terms: <strong>${fmtCr(annualGain)} additional income per year</strong>, 
-    totalling <strong>${fmtCr(totalGain)} over ${horizon} years</strong> — 
-    on the same corpus, without meaningfully changing credit risk profile.
+    In rupee terms: <strong>${fmtCr(annualGain)} additional income per year</strong>, totalling <strong>${fmtCr(totalGain)} over ${horizon} years</strong> — same corpus, better structure.
     <br><br>
-    <span class="disclaimer">All figures are indicative. Post-tax treatment assumes ${slab}% marginal rate throughout the horizon. Actual outcomes depend on holding period, fund category, and individual ITR. Verify with CA before execution.</span>
-  `;
+    <span class="disclaimer">Indicative figures. Verify with CA before execution. Contact Aurevia-W for product availability and allotment.</span>`;
 
   const resultsEl = document.getElementById('results');
   resultsEl.classList.add('show');
-  setTimeout(() => resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  setTimeout(() => resultsEl.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
-// ── INIT ──
+function sendToSheet(name, phone) {
+  if (!computedResults || APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
+
+  const { slab, corpus, horizon, residency, rows, wPostTax, optimised, annualGain, totalGain } = computedResults;
+  const holdingsSummary = rows.map(r => `${r.type}:${r.rate}%:${fmtCr(r.amount)}`).join(' | ');
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      name, whatsapp: phone,
+      taxSlab: slab, residency, corpus, horizon,
+      holdingsSummary,
+      currentYield:   wPostTax.toFixed(2)+'%',
+      optimisedYield: optimised.toFixed(2)+'%',
+      annualGain:     fmtCr(annualGain),
+      totalGain:      fmtCr(totalGain)
+    })
+  }).then(() => showToast('Analysis saved ✓')).catch(() => {});
+}
+
+function openWhatsApp() {
+  if (!computedResults) return;
+  const { corpus, wPostTax, optimised, annualGain, totalGain, horizon } = computedResults;
+  const msg = `*Aurevia-W — Fixed Income Analysis*\n\nCorpus: ${fmtCr(corpus)}\nCurrent post-tax yield: ${wPostTax.toFixed(2)}%\nOptimised yield: ${optimised.toFixed(2)}%\nAnnual gain: ${fmtCr(annualGain)}\nGain over ${horizon} years: ${fmtCr(totalGain)}\n\nRachana Sharma will call you shortly.\nARN 346352 · Indore`;
+  const phone = capturedLead.phone ? '91'+capturedLead.phone : '91';
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Allow Enter key in modal
+document.addEventListener('keydown', e => {
+  if (e.key==='Enter' && document.getElementById('modalOverlay').classList.contains('show')) submitLead();
+});
+
+// Init
 renderHoldings();
 document.getElementById('totalCorpus').addEventListener('input', renderHoldings);
 </script>
-
 </body>
 </html>
